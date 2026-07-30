@@ -897,7 +897,7 @@ main {
     }
 
     .main-nav {
-        display: none;
+        display: none !important;
         position: absolute;
         top: calc(100% + 10px);
         left: 16px;
@@ -914,7 +914,7 @@ main {
     }
 
     .topbar.menu-open .main-nav {
-        display: block;
+        display: block !important;
         opacity: 1;
         visibility: visible;
         pointer-events: auto;
@@ -922,9 +922,14 @@ main {
     }
 
     .main-nav ul {
+        display: none;
         flex-direction: column;
         gap: 8px;
         padding: 12px;
+    }
+
+    .topbar.menu-open .main-nav ul {
+        display: flex;
     }
 
     .main-nav a {
