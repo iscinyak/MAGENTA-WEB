@@ -11,18 +11,23 @@
     <meta property="og:image" content="assets/img/brand/LOGO-MAGENTA.png">
     <link rel="icon" type="image/png" href="assets/img/brand/LOGO-MAGENTA.png">
     <link rel="stylesheet" href="assets/css/style.css">
-    <title>Magenta | Quienes Somos</title>
+    <title>Magenta | Quiénes Somos</title>
 </head>
 <body>
     <header class="topbar">
         <a class="logo" href="index.html" aria-label="Inicio Magenta">
             <img src="assets/img/brand/LOGO-MAGENTA.png" alt="Logo Magenta">
         </a>
-        <nav class="main-nav" aria-label="Navegacion principal">
-            <ul>
+        <button class="menu-toggle" type="button" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="main-nav-list">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="main-nav" aria-label="Navegación principal">
+            <ul id="main-nav-list">
                 <li><a href="index.html">Inicio</a></li>
-                <li><a href="quienes-somos.html" class="active">Quienes somos</a></li>
-                <li><a href="contacto.html">Contactanos</a></li>
+                <li><a href="quienes-somos.html" class="active">¿Quiénes somos?</a></li>
+                <li><a href="contacto.html">Contáctanos</a></li>
             </ul>
         </nav>
     </header>
@@ -48,7 +53,7 @@
                 <p>Hoy acompanamos a clientes de distintos sectores con un enfoque cercano, procesos ordenados y resultados que elevan su imagen en cada punto de contacto.</p>
             </div>
             <div class="about-story-visual" aria-hidden="true">
-                <div class="about-layer about-layer-top">+10 anos</div>
+                <div class="about-layer about-layer-top">+10 años</div>
                 <div class="about-layer about-layer-mid">Produccion y diseno</div>
                 <div class="about-layer about-layer-bottom">Impacto visual real</div>
             </div>
@@ -94,7 +99,7 @@
         <section class="about-metrics">
             <div class="metric-tile">
                 <strong>+10</strong>
-                <span>Anos de experiencia</span>
+                <span>Años de experiencia</span>
             </div>
             <div class="metric-tile">
                 <strong>+500</strong>
@@ -155,5 +160,6 @@
             <span>© Magenta. Todos los derechos reservados.</span>
         </div>
     </footer>
+    <script src="assets/js/site.js" defer></script>
 </body>
 </html>
