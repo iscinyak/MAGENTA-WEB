@@ -796,11 +796,22 @@ main {
 }
 
 .catalog-card {
-    padding: 16px;
-    border-radius: 16px;
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(245, 245, 245, 0.96));
+    overflow: hidden;
+    border-radius: 18px;
+    background: var(--surface);
     border: 1px solid var(--border);
-    box-shadow: 0 8px 20px rgba(17, 17, 17, 0.04);
+    box-shadow: 0 10px 25px rgba(17, 17, 17, 0.06);
+}
+
+.catalog-card__media {
+    height: 160px;
+    background: linear-gradient(160deg, rgba(229, 0, 126, 0.95), rgba(0, 0, 0, 0.85));
+    background-size: cover;
+    background-position: center;
+}
+
+.catalog-card__body {
+    padding: 16px 18px 20px;
 }
 
 .catalog-card h4 {
