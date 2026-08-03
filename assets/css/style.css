@@ -59,7 +59,7 @@ body {
 .announcement-bar__track {
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 18px;
     width: max-content;
     white-space: nowrap;
     will-change: transform;
@@ -73,6 +73,13 @@ body {
     text-transform: uppercase;
     font-size: 0.9rem;
     text-shadow: 0 1px 3px rgba(0,0,0,0.25), 0 0 8px rgba(255,255,255,0.24);
+    padding: 0 4px;
+}
+
+.announcement-bar__spacer {
+    display: inline-block;
+    width: 40px;
+    flex-shrink: 0;
 }
 
 @keyframes announcement-scroll {
@@ -598,7 +605,7 @@ main {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: url('../img/backgrounds/MAGENTA-FONDO2.png');
+    background-image: url('../img/backgrounds/FONDO%20NUEVO%20-%20MAGENTA%202.webp');
     background-size: cover;
     background-position: center;
     opacity: 0.5;
@@ -1599,7 +1606,7 @@ main {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: url('../img/backgrounds/MAGENTA-FONDO.png');
+    background-image: url('../img/backgrounds/FONDO%20NUEVO%20-%20MAGENTA.webp');
     background-size: cover;
     background-position: center;
     filter: brightness(0.7) saturate(1.1);
