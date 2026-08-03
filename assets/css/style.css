@@ -47,12 +47,12 @@ body {
     content: '';
     position: absolute;
     top: -35%;
-    left: -30%;
-    width: 60%;
+    left: 0;
+    width: 34%;
     height: 170%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
     transform: rotate(20deg);
-    animation: announcement-shine 3.2s linear infinite;
+    animation: announcement-shine 8s ease-in-out infinite;
     pointer-events: none;
 }
 
@@ -63,7 +63,7 @@ body {
     width: max-content;
     white-space: nowrap;
     will-change: transform;
-    animation: announcement-scroll 10s linear infinite;
+    animation: announcement-scroll 16s linear infinite;
     padding-left: 10px;
 }
 
@@ -86,10 +86,18 @@ body {
 
 @keyframes announcement-shine {
     0% {
-        left: -20%;
+        transform: translateX(-180%) rotate(20deg);
+        opacity: 0;
+    }
+    20% {
+        opacity: 0.45;
+    }
+    80% {
+        opacity: 0.45;
     }
     100% {
-        left: 120%;
+        transform: translateX(240%) rotate(20deg);
+        opacity: 0;
     }
 }
 
