@@ -816,6 +816,29 @@ main {
     line-height: 1.5;
 }
 
+.service-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.products-page {
+    padding: 48px 24px 64px;
+}
+
+.products-page__header {
+    margin-bottom: 24px;
+}
+
+.products-page__header h1 {
+    margin: 10px 0 8px;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+}
+
+.products-page__grid {
+    margin-top: 8px;
+}
+
 .catalog-filters {
     display: flex;
     flex-wrap: wrap;
