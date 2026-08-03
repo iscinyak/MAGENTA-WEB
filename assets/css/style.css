@@ -669,6 +669,10 @@ main {
     .service-panel__list {
         grid-template-columns: 1fr;
     }
+
+    .catalog-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .section-title {
@@ -783,6 +787,33 @@ main {
     border: 1px solid var(--border);
     color: var(--text);
     font-size: 0.95rem;
+}
+
+.catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.catalog-card {
+    padding: 16px;
+    border-radius: 16px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(245, 245, 245, 0.96));
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 20px rgba(17, 17, 17, 0.04);
+}
+
+.catalog-card h4 {
+    margin: 0 0 8px;
+    font-size: 1rem;
+    color: var(--text);
+}
+
+.catalog-card p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.5;
 }
 
 
