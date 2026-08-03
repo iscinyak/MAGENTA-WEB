@@ -153,54 +153,53 @@
                     <h3>Catálogo de productos de Magenta</h3>
                     <button type="button" class="service-panel__close" aria-label="Cerrar catálogo de productos">×</button>
                 </div>
+                <div class="catalog-filters" role="tablist" aria-label="Filtros de productos">
+                    <button type="button" class="catalog-filter is-active" data-filter="letreros">Letreros</button>
+                    <button type="button" class="catalog-filter" data-filter="señalética">Señalética</button>
+                    <button type="button" class="catalog-filter" data-filter="stands">Stands y Exhibidores</button>
+                    <button type="button" class="catalog-filter" data-filter="laser">Corte y Grabado Láser</button>
+                    <button type="button" class="catalog-filter" data-filter="promocionales">Productos Promocionales</button>
+                </div>
                 <div class="catalog-grid">
-                    <article class="catalog-card">
-                        <h4>Letreros en PVC</h4>
-                        <p>Soluciones limpias y duraderas para identidad visual sin luz.</p>
+                    <article class="catalog-card" data-category="letreros">
+                        <h4>Letrero en PVC (Sin luz)</h4>
                     </article>
-                    <article class="catalog-card">
-                        <h4>Letreros con luz indirecta</h4>
-                        <p>Presentación elegante para interiores, fachadas y puntos de venta.</p>
+                    <article class="catalog-card" data-category="letreros">
+                        <h4>Letrero en PVC con Luz Indirecta</h4>
                     </article>
-                    <article class="catalog-card">
-                        <h4>Letreros en ACM</h4>
-                        <p>Opciones premium con acabado moderno y alto impacto visual.</p>
+                    <article class="catalog-card" data-category="letreros">
+                        <h4>Letrero en ACM con Luz Indirecta</h4>
                     </article>
-                    <article class="catalog-card">
-                        <h4>Acrílico Flat Cut</h4>
-                        <p>Decoración plana y detallada, ideal para marcas y señalización.</p>
+                    <article class="catalog-card" data-category="letreros">
+                        <h4>Letrero en ACM con Luz Directa</h4>
                     </article>
-                    <article class="catalog-card">
-                        <h4>Acrílico con luz</h4>
-                        <p>Diseños brillantes con efecto contemporáneo y sofisticado.</p>
+                    <article class="catalog-card" data-category="letreros">
+                        <h4>Letrero en Acrílico Flat Cut</h4>
+                        <p>Acrílico cortado a láser en plano, sin luz.</p>
                     </article>
-                    <article class="catalog-card">
-                        <h4>Letras formadas</h4>
-                        <p>Identidad corporativa con presencia, profundidad y estilo.</p>
+                    <article class="catalog-card" data-category="letreros">
+                        <h4>Letrero en Acrílico con Luz Directa</h4>
                     </article>
-                    <article class="catalog-card">
-                        <h4>Cajas de luz</h4>
-                        <p>Redondas, cuadradas y en lona para exhibiciones y señalización.</p>
+                    <article class="catalog-card" data-category="letreros">
+                        <h4>Letrero en Acrílico con Luz Indirecta</h4>
                     </article>
-                    <article class="catalog-card">
-                        <h4>Neón LED</h4>
-                        <p>Efector visual llamativo para ambientes modernos y promocionales.</p>
+                    <article class="catalog-card" data-category="letreros">
+                        <h4>Letras Formadas en ACM (Luz Directa + Indirecta)</h4>
                     </article>
-                    <article class="catalog-card">
-                        <h4>Stands y exhibidores</h4>
-                        <p>Soluciones para ferias, eventos y puntos de venta con alto impacto.</p>
+                    <article class="catalog-card" data-category="letreros">
+                        <h4>Caja de Luz Redonda</h4>
                     </article>
-                    <article class="catalog-card">
-                        <h4>Viniles y decorativos</h4>
-                        <p>Aplicaciones para interiores, exteriores y campañas de comunicación.</p>
+                    <article class="catalog-card" data-category="letreros">
+                        <h4>Caja de Luz Cuadrada</h4>
                     </article>
-                    <article class="catalog-card">
-                        <h4>Productos promocionales</h4>
-                        <p>Artículos de marca con acabado funcional y memorable.</p>
+                    <article class="catalog-card" data-category="letreros">
+                        <h4>Caja de Luz en Lona (1 Cara)</h4>
                     </article>
-                    <article class="catalog-card">
-                        <h4>Diseño gráfico</h4>
-                        <p>Branding, piezas corporativas y materiales visuales para tu empresa.</p>
+                    <article class="catalog-card" data-category="letreros">
+                        <h4>Caja de Luz en Lona (2 Caras)</h4>
+                    </article>
+                    <article class="catalog-card" data-category="letreros">
+                        <h4>Letrero Neón LED</h4>
                     </article>
                 </div>
             </div>
@@ -250,6 +249,8 @@
         const productosCard = document.querySelector('[data-service="productos"]');
         const productosPanel = document.getElementById('productos-panel');
         const productosClose = productosPanel?.querySelector('.service-panel__close');
+        const productFilters = productosPanel?.querySelectorAll('.catalog-filter');
+        const productCards = productosPanel?.querySelectorAll('.catalog-card');
 
         const toggleProductosPanel = () => {
             if (!productosCard || !productosPanel) return;
@@ -258,6 +259,17 @@
             productosCard.setAttribute('aria-expanded', String(!isOpen));
             productosPanel.hidden = isOpen;
             productosCard.classList.toggle('card--active', !isOpen);
+        };
+
+        const applyFilter = (filter) => {
+            productFilters?.forEach((button) => {
+                button.classList.toggle('is-active', button.dataset.filter === filter);
+            });
+
+            productCards?.forEach((card) => {
+                const showCard = card.dataset.category === filter || filter === 'all';
+                card.style.display = showCard ? '' : 'none';
+            });
         };
 
         productosCard?.addEventListener('click', toggleProductosPanel);
@@ -275,6 +287,12 @@
                 productosCard.classList.remove('card--active');
             }
         });
+
+        productFilters?.forEach((button) => {
+            button.addEventListener('click', () => applyFilter(button.dataset.filter));
+        });
+
+        applyFilter('letreros');
 
         const body = document.body;
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
