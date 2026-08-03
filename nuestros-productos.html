@@ -224,6 +224,34 @@
             promocionales: ['Produccion por volumen', 'Opciones de personalizacion', 'Ideal para activaciones de marca']
         };
 
+        const buildCatalogImageUrl = (title) => `assets/img/catalogo/${encodeURIComponent(title)}.webp`;
+
+        const setMediaFromProductTitle = (element, productTitle, fallbackClass, baseClass) => {
+            if (!element) {
+                return;
+            }
+
+            element.className = baseClass;
+            element.classList.add(fallbackClass || 'media-letreros');
+            element.style.backgroundImage = '';
+
+            if (!productTitle) {
+                return;
+            }
+
+            const imageUrl = buildCatalogImageUrl(productTitle.trim());
+            const probe = new Image();
+            probe.onload = () => {
+                element.style.backgroundImage = `url('${imageUrl}')`;
+            };
+            probe.src = imageUrl;
+        };
+
+        productCards.forEach((card) => {
+            const media = card.querySelector('.catalog-card__media');
+            setMediaFromProductTitle(media, card.dataset.title, card.dataset.image, 'catalog-card__media');
+        });
+
         const applyFilter = (filter) => {
             filterButtons.forEach((button) => {
                 button.classList.toggle('is-active', button.dataset.filter === filter);
@@ -272,8 +300,7 @@
                 modalCta.style.display = 'inline-flex';
             }
 
-            modalMedia.className = 'product-modal__media';
-            modalMedia.classList.add(card.dataset.image || 'media-letreros');
+            setMediaFromProductTitle(modalMedia, card.dataset.title, card.dataset.image, 'product-modal__media');
             modalBackdrop.classList.add('is-open');
             modalBackdrop.setAttribute('aria-hidden', 'false');
         };
