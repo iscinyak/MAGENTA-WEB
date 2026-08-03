@@ -98,7 +98,7 @@
             </div>
 
             <div class="services-grid">
-                <article class="card">
+                <article class="card card--interactive" data-service="letreros" tabindex="0" role="button" aria-expanded="false" aria-controls="letreros-panel">
                     <div class="card-media media-letreros"></div>
                     <div class="card-body">
                         <h3>Letreros</h3>
@@ -146,6 +146,28 @@
                     </div>
                 </article>
             </div>
+
+            <div id="letreros-panel" class="service-panel" hidden>
+                <div class="service-panel__header">
+                    <h3>Tipos de letreros que ofrecemos</h3>
+                    <button type="button" class="service-panel__close" aria-label="Cerrar tipos de letreros">×</button>
+                </div>
+                <div class="service-panel__list">
+                    <div class="service-panel__item">Letrero en PVC (Sin luz)</div>
+                    <div class="service-panel__item">Letrero en PVC con Luz Indirecta</div>
+                    <div class="service-panel__item">Letrero en ACM con Luz Indirecta</div>
+                    <div class="service-panel__item">Letrero en ACM con Luz Directa</div>
+                    <div class="service-panel__item">Letrero en Acrílico Flat Cut (Acrílico cortado a láser en plano, sin luz)</div>
+                    <div class="service-panel__item">Letrero en Acrílico con Luz Directa</div>
+                    <div class="service-panel__item">Letrero en Acrílico con Luz Indirecta</div>
+                    <div class="service-panel__item">Letras Formadas en ACM (Luz Directa + Indirecta)</div>
+                    <div class="service-panel__item">Caja de Luz Redonda</div>
+                    <div class="service-panel__item">Caja de Luz Cuadrada</div>
+                    <div class="service-panel__item">Caja de Luz en Lona (1 Cara)</div>
+                    <div class="service-panel__item">Caja de Luz en Lona (2 Caras)</div>
+                    <div class="service-panel__item">Letrero Neón LED</div>
+                </div>
+            </div>
         </section>
     </main>
 
@@ -189,6 +211,35 @@
     </footer>
     <script src="assets/js/site.js?v=20260730-3" defer></script>
     <script>
+        const letrerosCard = document.querySelector('[data-service="letreros"]');
+        const letrerosPanel = document.getElementById('letreros-panel');
+        const letrerosClose = letrerosPanel?.querySelector('.service-panel__close');
+
+        const toggleLetrerosPanel = () => {
+            if (!letrerosCard || !letrerosPanel) return;
+
+            const isOpen = letrerosCard.getAttribute('aria-expanded') === 'true';
+            letrerosCard.setAttribute('aria-expanded', String(!isOpen));
+            letrerosPanel.hidden = isOpen;
+            letrerosCard.classList.toggle('card--active', !isOpen);
+        };
+
+        letrerosCard?.addEventListener('click', toggleLetrerosPanel);
+        letrerosCard?.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                toggleLetrerosPanel();
+            }
+        });
+        letrerosClose?.addEventListener('click', (event) => {
+            event.stopPropagation();
+            if (letrerosCard && letrerosPanel) {
+                letrerosCard.setAttribute('aria-expanded', 'false');
+                letrerosPanel.hidden = true;
+                letrerosCard.classList.remove('card--active');
+            }
+        });
+
         const body = document.body;
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
