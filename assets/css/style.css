@@ -796,12 +796,27 @@ main {
 }
 
 .catalog-card {
+    position: relative;
     overflow: hidden;
     border-radius: 20px;
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(246, 246, 246, 0.98));
-    border: 1px solid var(--border);
     box-shadow: 0 14px 30px rgba(17, 17, 17, 0.08);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.catalog-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 2px;
+    background: linear-gradient(135deg, #111111, #e5007e);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    pointer-events: none;
 }
 
 .catalog-card:hover {
@@ -817,6 +832,8 @@ main {
 }
 
 .catalog-card__body {
+    position: relative;
+    z-index: 1;
     padding: 18px 20px 22px;
 }
 
@@ -878,6 +895,66 @@ main {
     background: linear-gradient(135deg, rgba(229, 0, 126, 0.95), rgba(0, 0, 0, 0.85));
     color: #fff;
     border-color: transparent;
+}
+
+.product-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    z-index: 2000;
+}
+
+.product-modal-backdrop.is-open {
+    display: flex;
+}
+
+.product-modal {
+    width: min(960px, 100%);
+    background: #fff;
+    border-radius: 24px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+}
+
+.product-modal__media {
+    min-height: 320px;
+    background: linear-gradient(160deg, rgba(229, 0, 126, 0.95), rgba(0, 0, 0, 0.85));
+}
+
+.product-modal__content {
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.product-modal__content h3 {
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.product-modal__content p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.product-modal__close {
+    align-self: flex-start;
+    border: 0;
+    background: transparent;
+    color: #111;
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding: 0;
 }
 
 .media-letreros,
