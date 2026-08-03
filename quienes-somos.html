@@ -116,9 +116,65 @@
             </div>
         </section>
 
-        <section class="about-cta">
-            <p class="eyebrow">Empecemos hoy</p>
-            <h2>Tu marca merece verse tan fuerte como su propuesta de valor.</h2>
+        <section class="about-cta products-page" id="catalogo">
+            <div class="products-page__header">
+                <p class="eyebrow">Nuestro catálogo</p>
+                <h2>Soluciones visuales para identidad, señalización y promoción.</h2>
+            </div>
+
+            <div class="catalog-filters" role="tablist" aria-label="Filtros de productos">
+                <button type="button" class="catalog-filter is-active" data-filter="letreros">Letreros</button>
+                <button type="button" class="catalog-filter" data-filter="señalética">Señalética</button>
+                <button type="button" class="catalog-filter" data-filter="stands">Stands y Exhibidores</button>
+                <button type="button" class="catalog-filter" data-filter="laser">Corte y Grabado Láser</button>
+                <button type="button" class="catalog-filter" data-filter="promocionales">Productos Promocionales</button>
+            </div>
+
+            <div class="catalog-grid products-page__grid">
+                <article class="catalog-card" data-category="letreros" data-title="Letrero en PVC (Sin luz)" data-description="Solución básica y funcional para identidad visual." data-image="media-letreros">
+                    <div class="catalog-card__media media-letreros"></div>
+                    <div class="catalog-card__body">
+                        <h4>Letrero en PVC (Sin luz)</h4>
+                    </div>
+                </article>
+                <article class="catalog-card" data-category="letreros" data-title="Letrero en ACM con Luz Directa" data-description="Solución visual de alto impacto con iluminación directa." data-image="media-letreros">
+                    <div class="catalog-card__media media-letreros"></div>
+                    <div class="catalog-card__body">
+                        <h4>Letrero en ACM con Luz Directa</h4>
+                    </div>
+                </article>
+                <article class="catalog-card" data-category="letreros" data-title="Letrero en Acrílico Flat Cut" data-description="Acrílico cortado a láser en plano, sin luz." data-image="media-letreros">
+                    <div class="catalog-card__media media-letreros"></div>
+                    <div class="catalog-card__body">
+                        <h4>Letrero en Acrílico Flat Cut</h4>
+                    </div>
+                </article>
+                <article class="catalog-card" data-category="señalética" data-title="Señalética interior" data-description="Soluciones claras para circulación y orientación en espacios corporativos." data-image="media-viniles">
+                    <div class="catalog-card__media media-viniles"></div>
+                    <div class="catalog-card__body">
+                        <h4>Señalética interior</h4>
+                    </div>
+                </article>
+                <article class="catalog-card" data-category="stands" data-title="Stand promocional" data-description="Estructuras listas para eventos, ferias y activaciones de marca." data-image="media-viniles">
+                    <div class="catalog-card__media media-viniles"></div>
+                    <div class="catalog-card__body">
+                        <h4>Stand promocional</h4>
+                    </div>
+                </article>
+                <article class="catalog-card" data-category="laser" data-title="Corte láser" data-description="Precisión y acabados profesionales para piezas personalizadas." data-image="media-laser">
+                    <div class="catalog-card__media media-laser"></div>
+                    <div class="catalog-card__body">
+                        <h4>Corte láser</h4>
+                    </div>
+                </article>
+                <article class="catalog-card" data-category="promocionales" data-title="Productos promocionales" data-description="Herramientas de marketing con impacto y memoria de marca." data-image="media-promocionales">
+                    <div class="catalog-card__media media-promocionales"></div>
+                    <div class="catalog-card__body">
+                        <h4>Productos promocionales</h4>
+                    </div>
+                </article>
+            </div>
+
             <a href="contacto.html" class="btn btn-primary">Hablar con Magenta</a>
         </section>
     </main>
@@ -126,6 +182,17 @@
     <a href="https://wa.me/50765595485" class="btn-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
     </a>
+
+    <div class="product-modal-backdrop" id="productModalBackdrop" aria-hidden="true">
+        <div class="product-modal" role="dialog" aria-modal="true" aria-labelledby="productModalTitle">
+            <div class="product-modal__media" id="productModalMedia"></div>
+            <div class="product-modal__content">
+                <button class="product-modal__close" type="button" aria-label="Cerrar detalle del producto">×</button>
+                <h3 id="productModalTitle"></h3>
+                <p id="productModalDescription"></p>
+            </div>
+        </div>
+    </div>
 
     <footer class="footer-pro">
         <div class="footer-col">
@@ -162,5 +229,62 @@
         </div>
     </footer>
     <script src="assets/js/site.js?v=20260730-3" defer></script>
+    <script>
+        const catalogFilterButtons = document.querySelectorAll('.catalog-filter');
+        const catalogCards = document.querySelectorAll('.catalog-card');
+        const productModalBackdrop = document.getElementById('productModalBackdrop');
+        const productModalTitle = document.getElementById('productModalTitle');
+        const productModalDescription = document.getElementById('productModalDescription');
+        const productModalMedia = document.getElementById('productModalMedia');
+        const productModalClose = productModalBackdrop?.querySelector('.product-modal__close');
+
+        const applyCatalogFilter = (filter) => {
+            catalogFilterButtons.forEach((button) => {
+                button.classList.toggle('is-active', button.dataset.filter === filter);
+            });
+
+            catalogCards.forEach((card) => {
+                const showCard = card.dataset.category === filter || filter === 'all';
+                card.style.display = showCard ? '' : 'none';
+            });
+        };
+
+        const openProductModal = (card) => {
+            productModalTitle.textContent = card.dataset.title || 'Producto';
+            productModalDescription.textContent = card.dataset.description || 'Detalle del producto.';
+            productModalMedia.className = 'product-modal__media';
+            productModalMedia.classList.add(card.dataset.image || 'media-letreros');
+            productModalBackdrop.classList.add('is-open');
+            productModalBackdrop.setAttribute('aria-hidden', 'false');
+        };
+
+        const closeProductModal = () => {
+            productModalBackdrop.classList.remove('is-open');
+            productModalBackdrop.setAttribute('aria-hidden', 'true');
+        };
+
+        catalogFilterButtons.forEach((button) => {
+            button.addEventListener('click', () => applyCatalogFilter(button.dataset.filter));
+        });
+
+        catalogCards.forEach((card) => {
+            card.addEventListener('click', () => openProductModal(card));
+        });
+
+        productModalBackdrop?.addEventListener('click', (event) => {
+            if (event.target === productModalBackdrop) {
+                closeProductModal();
+            }
+        });
+
+        productModalClose?.addEventListener('click', closeProductModal);
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                closeProductModal();
+            }
+        });
+
+        applyCatalogFilter('letreros');
+    </script>
 </body>
 </html>
