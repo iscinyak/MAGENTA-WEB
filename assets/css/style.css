@@ -14,11 +14,83 @@
 
 body {
     margin: 0;
-    padding-top: 94px;
+    padding-top: 126px;
     background: linear-gradient(180deg, #ffffff 0%, var(--surface-soft) 100%);
     color: var(--text);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
+}
+
+.announcement-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1100;
+    overflow: hidden;
+    background: linear-gradient(90deg, #8d0048 0%, #d60075 35%, #ff2b92 70%, #ff5ea8 100%);
+    color: #fff;
+    box-shadow: 0 10px 28px rgba(17, 17, 17, 0.24);
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.24);
+}
+
+.announcement-bar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.18), transparent 35%);
+    pointer-events: none;
+}
+
+.announcement-bar::after {
+    content: '';
+    position: absolute;
+    top: -35%;
+    left: -30%;
+    width: 60%;
+    height: 170%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent);
+    transform: rotate(20deg);
+    animation: announcement-shine 3.2s linear infinite;
+    pointer-events: none;
+}
+
+.announcement-bar__track {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    width: max-content;
+    white-space: nowrap;
+    will-change: transform;
+    animation: announcement-scroll 10s linear infinite;
+    padding-left: 10px;
+}
+
+.announcement-bar__item {
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.25), 0 0 8px rgba(255,255,255,0.24);
+}
+
+@keyframes announcement-scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes announcement-shine {
+    0% {
+        left: -20%;
+    }
+    100% {
+        left: 120%;
+    }
 }
 
 img {
@@ -117,7 +189,7 @@ body.intro-animate.intro-in .photo-card-2 {
 
 .topbar {
     position: fixed;
-    top: 0;
+    top: 44px;
     left: 0;
     width: 100%;
     display: flex;
@@ -915,27 +987,30 @@ main {
 }
 
 .product-modal {
-    width: min(1100px, 100%);
+    width: min(1120px, 100%);
+    max-width: 1120px;
     background: #fff;
-    border-radius: 24px;
+    border-radius: 28px;
     overflow: hidden;
     display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
+    grid-template-columns: minmax(320px, 1.05fr) minmax(280px, 0.95fr);
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
 }
 
 .product-modal__media {
+    width: 100%;
     min-height: 420px;
     aspect-ratio: 1 / 1;
     background: linear-gradient(160deg, rgba(229, 0, 126, 0.95), rgba(0, 0, 0, 0.85));
     border-radius: 0;
+    align-self: stretch;
 }
 
 .product-modal__content {
-    padding: 28px 32px;
+    padding: 32px 36px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
     justify-content: center;
 }
 
