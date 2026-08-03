@@ -1080,6 +1080,12 @@ main {
     align-self: center;
 }
 
+.product-modal .product-modal__media {
+    background-size: 92% auto;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 .product-modal__content {
     position: relative;
     padding: 32px 36px;
@@ -1222,7 +1228,7 @@ main {
 .media-papeleria,
 .media-promocionales,
 .media-animacion {
-    background: linear-gradient(160deg, rgba(229, 0, 126, 0.95), rgba(0, 0, 0, 0.85));
+    background-image: linear-gradient(160deg, rgba(229, 0, 126, 0.95), rgba(0, 0, 0, 0.85));
 }
 
 .media-letrero-pvc-sin-luz {
