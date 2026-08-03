@@ -67,8 +67,8 @@
             </div>
 
             <div class="catalog-grid products-page__grid">
-                <article class="catalog-card" data-category="letreros" data-title="Letrero en PVC (Sin luz)" data-description="Solución básica y funcional para identidad visual con acabado limpio y duradero." data-image="media-letreros">
-                    <div class="catalog-card__media media-letreros"></div>
+                <article class="catalog-card" data-category="letreros" data-title="Letrero en PVC (Sin luz)" data-modal-title="Letrero en ACM con Luz Directa" data-description="Solución de alto impacto visual con iluminación frontal y acabado profesional de larga duración." data-specs="Uso: Exterior e Interior|Material: Panel de Aluminio Compuesto (ACM) + Acrílico|Iluminación: LED de alta potencia y bajo consumo (110V)|Durabilidad: Alta resistencia a la intemperie (sol y agua)|Personalización: Medidas, colores y formas a la medida" data-cta-label="Cotizar por WhatsApp" data-cta-href="https://wa.me/50765595485" data-image="media-letrero-pvc-sin-luz">
+                    <div class="catalog-card__media media-letrero-pvc-sin-luz"></div>
                     <div class="catalog-card__body">
                         <h4>Letrero en PVC (Sin luz)</h4>
                         <p>Solución básica y funcional para identidad visual.</p>
@@ -158,6 +158,11 @@
                 <button class="product-modal__close" type="button" aria-label="Cerrar detalle del producto">×</button>
                 <h3 id="productModalTitle"></h3>
                 <p id="productModalDescription"></p>
+                <div class="product-modal__specs">
+                    <h4>Especificaciones</h4>
+                    <ul id="productModalSpecs"></ul>
+                </div>
+                <a id="productModalCta" class="btn btn-primary product-modal__cta" href="https://wa.me/50765595485" target="_blank" rel="noopener noreferrer">Cotizar por WhatsApp</a>
             </div>
         </div>
     </div>
@@ -204,8 +209,20 @@
         const modalBackdrop = document.getElementById('productModalBackdrop');
         const modalTitle = document.getElementById('productModalTitle');
         const modalDescription = document.getElementById('productModalDescription');
+        const modalSpecs = document.getElementById('productModalSpecs');
         const modalMedia = document.getElementById('productModalMedia');
+        const modalCta = document.getElementById('productModalCta');
         const modalClose = modalBackdrop?.querySelector('.product-modal__close');
+        const defaultCtaLabel = 'Cotizar por WhatsApp';
+        const defaultCtaHref = 'https://wa.me/50765595485';
+
+        const categorySpecs = {
+            letreros: ['Material resistente para interior/exterior', 'Acabado limpio con alta legibilidad', 'Fabricacion personalizada por medida'],
+            'señalética': ['Senalizacion funcional y clara', 'Opciones para pared o estructura', 'Produccion en materiales duraderos'],
+            stands: ['Estructura modular para eventos', 'Diseno adaptado a tu marca', 'Montaje rapido en sitio'],
+            laser: ['Corte de alta precision', 'Detalles finos y terminacion uniforme', 'Compatible con distintos materiales'],
+            promocionales: ['Produccion por volumen', 'Opciones de personalizacion', 'Ideal para activaciones de marca']
+        };
 
         const applyFilter = (filter) => {
             filterButtons.forEach((button) => {
@@ -219,8 +236,42 @@
         };
 
         const openProductModal = (card) => {
-            modalTitle.textContent = card.dataset.title || 'Producto';
+            modalTitle.textContent = card.dataset.modalTitle || card.dataset.title || 'Producto';
             modalDescription.textContent = card.dataset.description || 'Detalle del producto.';
+
+            const specs = card.dataset.specs
+                ? card.dataset.specs.split('|').map((item) => item.trim()).filter(Boolean)
+                : (categorySpecs[card.dataset.category] || ['Diseno personalizado segun requerimiento', 'Produccion con control de calidad', 'Entrega segun cronograma acordado']);
+            if (modalSpecs) {
+                modalSpecs.innerHTML = '';
+                specs.forEach((spec) => {
+                    const item = document.createElement('li');
+                    const separatorIndex = spec.indexOf(':');
+                    const hasPair = separatorIndex !== -1;
+                    const labelText = hasPair ? spec.slice(0, separatorIndex + 1).trim() : 'Detalle:';
+                    const valueText = hasPair ? spec.slice(separatorIndex + 1).trim() : spec.trim();
+
+                    const label = document.createElement('span');
+                    label.className = 'product-spec-label';
+                    label.textContent = labelText;
+
+                    const value = document.createElement('span');
+                    value.className = 'product-spec-value';
+                    value.textContent = valueText;
+
+                    item.append(label, value);
+                    modalSpecs.appendChild(item);
+                });
+            }
+
+            if (modalCta) {
+                const ctaLabel = card.dataset.ctaLabel?.trim();
+                const ctaHref = card.dataset.ctaHref?.trim();
+                modalCta.textContent = ctaLabel || defaultCtaLabel;
+                modalCta.href = ctaHref || defaultCtaHref;
+                modalCta.style.display = 'inline-flex';
+            }
+
             modalMedia.className = 'product-modal__media';
             modalMedia.classList.add(card.dataset.image || 'media-letreros');
             modalBackdrop.classList.add('is-open');
